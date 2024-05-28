@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 
-export default function BlackLongButton(props: any) {
+export default function WhiteLongButton(props: any) {
   const content = props.content;
   const onPress = props.onPress;
 
@@ -13,8 +13,9 @@ export default function BlackLongButton(props: any) {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#000',
         borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#000',
       }}>
       <Text
         style={{
@@ -22,7 +23,7 @@ export default function BlackLongButton(props: any) {
           includeFontPadding: false,
           fontSize: 13,
           fontWeight: '600',
-          color: '#fff',
+          color: '#000',
         }}>
         {content}
       </Text>
