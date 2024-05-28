@@ -15,13 +15,16 @@ const TopBar = class extends react_1.Component {
     }
     render() {
         const topBarOptions = this.props.topBarOptions;
+        const topbarTestId = topBarOptions?.testID;
+        const titleTestId = topbarTestId ? { testID: `${topbarTestId}.title` } : {};
+        const subtitleTestId = topbarTestId ? { testID: `${topbarTestId}.subtitle` } : {};
         if (topBarOptions?.visible === false)
             return null;
         else {
             const component = topBarOptions?.title?.component;
-            return (react_1.default.createElement(react_native_1.View, { testID: topBarOptions?.testID },
-                react_1.default.createElement(react_native_1.Text, null, topBarOptions?.title?.text),
-                react_1.default.createElement(react_native_1.Text, null, topBarOptions?.subtitle?.text),
+            return (react_1.default.createElement(react_native_1.View, { testID: topbarTestId },
+                react_1.default.createElement(react_native_1.Text, { ...titleTestId }, topBarOptions?.title?.text),
+                react_1.default.createElement(react_native_1.Text, { ...subtitleTestId }, topBarOptions?.subtitle?.text),
                 this.renderButtons(topBarOptions?.leftButtons),
                 this.renderButtons(topBarOptions?.rightButtons),
                 component &&

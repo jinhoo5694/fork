@@ -50,7 +50,9 @@ export default function Auth(props: any) {
         .then(response => {
           console.log(response.data);
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+        });
     }
   }
 
