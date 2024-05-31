@@ -1,0 +1,6 @@
+module Pods_fork_forkTests {
+  umbrella header "Pods-fork-forkTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+module Pods_fork {
+  umbrella header "Pods-fork-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,91 @@
+current directory: /Users/jinhoo/DEV/fork/vendor/bundle/ruby/3.0.0/gems/nkf-0.2.0/ext/nkf
+/Users/jinhoo/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/jinhoo/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20240531-40635-xoqek0.rb extconf.rb
+creating Makefile
+
+current directory: /Users/jinhoo/DEV/fork/vendor/bundle/ruby/3.0.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR=" clean
+
+current directory: /Users/jinhoo/DEV/fork/vendor/bundle/ruby/3.0.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR="
+compiling nkf.c
+linking shared-object nkf.bundle
+ld: warning: -multiply_defined is obsolete
+ld: warning: ignoring file '/Users/jinhoo/.rvm/rubies/ruby-3.0.0/lib/libruby.3.0.dylib': found architecture 'arm64', required architecture 'x86_64'
+Undefined symbols for architecture x86_64:
+  "_rb_define_alias", referenced from:
+      _Init_nkf in nkf.o
+  "_rb_define_const", referenced from:
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      ...
+  "_rb_define_dummy_encoding", referenced from:
+      _rb_nkf_enc_get in nkf.o
+  "_rb_define_module", referenced from:
+      _Init_nkf in nkf.o
+  "_rb_define_module_function", referenced from:
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+  "_rb_eArgError", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_enc_associate", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_enc_find_index", referenced from:
+      _rb_nkf_enc_get in nkf.o
+      _rb_nkf_enc_get in nkf.o
+  "_rb_enc_from_encoding", referenced from:
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      ...
+  "_rb_enc_from_index", referenced from:
+      _rb_nkf_enc_get in nkf.o
+  "_rb_out_of_int", referenced from:
+      _rb_nkf_convert in nkf.o
+      _rb_nkf_guess in nkf.o
+  "_rb_raise", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_singleton_class", referenced from:
+      _Init_nkf in nkf.o
+  "_rb_str_new", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_str_new_static", referenced from:
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+      _Init_nkf in nkf.o
+  "_rb_str_resize", referenced from:
+      _std_putc in nkf.o
+  "_rb_str_set_len", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_string_value_cstr", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_string_value_ptr", referenced from:
+      _rb_nkf_convert in nkf.o
+      _rb_nkf_guess in nkf.o
+  "_rb_usascii_encoding", referenced from:
+      _rb_nkf_convert in nkf.o
+  "_rb_utf8_encoding", referenced from:
+      _Init_nkf in nkf.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [nkf.bundle] Error 1
+
+make failed, exit code 2

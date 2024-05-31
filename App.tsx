@@ -50,15 +50,17 @@ function App(): React.JSX.Element {
     );
   } else {
     return (
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: '#f5f5f5',
-        }}>
-        <NavigationContainer>
-          <Main />
-        </NavigationContainer>
-      </SafeAreaView>
+      <AppContext.Provider value={authValues}>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            backgroundColor: '#f5f5f5',
+          }}>
+          <NavigationContainer>
+            <Main />
+          </NavigationContainer>
+        </SafeAreaView>
+      </AppContext.Provider>
     );
   }
 }
