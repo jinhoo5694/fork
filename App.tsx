@@ -24,12 +24,15 @@ import Auth from './pages/auth/Auth';
 function App(): React.JSX.Element {
   const [authenticated, setAuthenticated] = useState(false);
   const [token, setToken] = useState();
+  const [userId, setUserId] = useState('');
 
   const authValues = {
     authenticated: authenticated,
     setAuthenticated,
     token: token,
     setToken,
+    userId: userId,
+    setUserId,
   };
 
   if (!authenticated) {
@@ -44,6 +47,7 @@ function App(): React.JSX.Element {
             token={token}
             setToken={setToken}
             setAuthenticated={setAuthenticated}
+            setUserId={setUserId}
           />
         </SafeAreaView>
       </AppContext.Provider>

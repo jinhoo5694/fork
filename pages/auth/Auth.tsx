@@ -13,6 +13,7 @@ export default function Auth(props: any) {
   const token = props.token;
   const setToken = props.setToken;
   const setAuthenticated = props.setAuthenticated;
+  const setUserId = props.setUserId;
   const [id, setId] = useState('');
   const [page, setPage] = useState(0);
   const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ export default function Auth(props: any) {
           setConfirm={setConfirm}
           setToken={setToken}
           setAuthenticated={setAuthenticated}
+          setUserId={setUserId}
         />
       );
     } else if (page == 1) {

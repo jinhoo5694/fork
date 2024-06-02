@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, Dimensions, Image} from 'react-native';
+import {View, Text, Dimensions, Image, Alert} from 'react-native';
 import InputBoxTitle from '../../components/inputs/InputBoxTitle';
 import BlackLongButton from '../../components/buttons/BlackLongButton';
 import WhiteLongButton from '../../components/buttons/WhiteLongButton';
@@ -15,6 +15,7 @@ export default function LoginPage(props: any) {
   const setConfirm = props.setConfirm;
   const setToken = props.setToken;
   const setAuthenticated = props.setAuthenticated;
+  const setUserId = props.setUserId;
 
   function login() {
     const requestForm = {
@@ -31,6 +32,9 @@ export default function LoginPage(props: any) {
         if (response.data.success) {
           setToken(response.data.item.OAuthToken);
           setAuthenticated(true);
+          setUserId(id);
+        } else {
+          Alert.alert(response.data.error_text);
         }
       })
       .catch(error => console.error(error));
