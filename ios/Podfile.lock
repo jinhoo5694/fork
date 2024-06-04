@@ -1259,6 +1259,8 @@ PODS:
     - RNSound/Core (= 0.11.2)
   - RNSound/Core (0.11.2):
     - React-Core
+  - RNSVG (15.3.0):
+    - React-Core
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1327,6 +1329,7 @@ DEPENDENCIES:
   - ReactNativeNavigation (from `../node_modules/react-native-navigation`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSound (from `../node_modules/react-native-sound`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1460,6 +1463,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSound:
     :path: "../node_modules/react-native-sound"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1528,6 +1533,7 @@ SPEC CHECKSUMS:
   ReactNativeNavigation: e62ba14d9cd44774dca6068b6559ec872e0e61a6
   RNScreens: b32a9ff15bea7fcdbe5dff6477bc503f792b1208
   RNSound: 6c156f925295bdc83e8e422e7d8b38d33bc71852
+  RNSVG: a48668fd382115bc89761ce291a81c4ca5f2fd2e
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: ff1d575b119f510a5de23c22a794872562078ccf
 

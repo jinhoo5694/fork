@@ -57,15 +57,11 @@ export default function RegisterPage(props: any) {
           },
         )
         .then(response => {
-          if (response.data.success) {
-            sendEmail();
-            setId('');
-            setPw('');
-            setConfirm('');
-            setPage(2);
-          } else {
-            Alert.alert('error');
-          }
+          sendEmail();
+          setId('');
+          setPw('');
+          setConfirm('');
+          setPage(2);
         })
         .catch(error => {
           console.error(error);

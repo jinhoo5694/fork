@@ -15,22 +15,21 @@ import axios from 'axios';
 export default function User({navigation}) {
   const context = useContext(AppContext);
   const windowWidth = Dimensions.get('window').width;
-  // const userId = context.userId;
-  const userId = 'f85949d0-8d23-487e-bb33-d8355b199ed1';
+  const userId = context.userId;
+  // const userId = 'f85949d0-8d23-487e-bb33-d8355b199ed1';
   const [userInfo, setUserInfo] = useState({});
 
   function getUserInfo() {
     axios
-      .get('http://121.184.96.94:3001/api/v1/user/' + userId, {
+      .get('http://121.184.96.94:3001/api/v1/user', {
         headers: {
           Authorization: 'Bearer ' + context.token,
         },
       })
       .then(response => {
         if (response.data.success) {
-          setUserInfo(response.data.item.User);
-        } else {
-          Alert.alert('error');
+          const userList = response.data.item.UserList;
+          console.log(userList);
         }
       })
       .catch(error => console.error(error));

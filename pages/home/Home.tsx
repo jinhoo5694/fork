@@ -11,12 +11,15 @@ import {
   TextInput,
   TouchableOpacity,
   Modal,
+  ScrollView,
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useContext, useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import AppContext from '../../AppContext';
 import axios from 'axios';
+import StarRating from 'react-native-star-rating-widget';
+import ReviewCard from './ReviewCard.tsx';
 
 export default function Home({navigation}) {
   const context = useContext(AppContext);
@@ -32,6 +35,8 @@ export default function Home({navigation}) {
   const [input, setInput] = useState('');
   const [modal, setModal] = useState(false);
   const [target, setTarget] = useState({});
+  const [averageScore, setAverageScore] = useState(0);
+  const [reviews, setReviews] = useState([]);
   async function requestPermission() {
     try {
       if (Platform.OS === 'ios') {
@@ -61,6 +66,72 @@ export default function Home({navigation}) {
       .catch(error => console.error(error));
   }
 
+  function getBookMark() {
+    axios
+      .get('http://121.184.96.94:3001/api/v1/bookmark', {
+        headers: {
+          Authorization: 'Bearer ' + context.token,
+        },
+      })
+      .then(response => console.log(response.data.item))
+      .catch(error => console.error(error));
+  }
+
+  function addBookMark(id: string) {
+    const requestForm = {
+      facility_id: id,
+    };
+    axios
+      .post(
+        'http://121.184.96.94:3001/api/v1/bookmark',
+        JSON.stringify(requestForm),
+        {
+          headers: {
+            Authorization: 'Bearer ' + context.token,
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      .then(response => console.log(response.data))
+      .catch(error => console.error(error));
+  }
+
+  function handleClick(facility: object) {
+    setModal(true);
+    setTarget(facility);
+    console.log(facility);
+    axios
+      .get('http://121.184.96.94:3001/api/v1/facility/' + facility.id, {})
+      .then(response => {
+        if (response.data.success) {
+          setAverageScore(
+            Math.round(response.data.item.AverageReviewScore * 100) / 100,
+          );
+          axios
+            .get(
+              'http://121.184.96.94:3001/api/v1/review?facility_id=' +
+                facility.id,
+              {
+                headers: {
+                  Authorization: 'Bearer ' + context.token,
+                },
+              },
+            )
+            .then(resp => {
+              setReviews(resp.data.item.ReviewList);
+            })
+            .catch(err => console.error(err));
+        } else {
+          Alert.alert('Error');
+          setModal(false);
+        }
+      })
+      .catch(error => console.error(error));
+  }
+
+  console.log(reviews.length);
+  console.log(averageScore);
+
   const facilityMarkers = filteredFacilities.map(facility => (
     <Marker
       tracksViewChanges={Platform.OS === 'ios'}
@@ -70,8 +141,7 @@ export default function Home({navigation}) {
         longitude: parseFloat(facility.longitude),
       }}
       onPress={() => {
-        setModal(true);
-        setTarget(facility);
+        handleClick(facility);
       }}
       style={{flexDirection: 'column', alignItems: 'center'}}>
       <Image
@@ -112,6 +182,11 @@ export default function Home({navigation}) {
     getFacilities();
   }, []);
 
+  console.log(target);
+  const reviewCards = reviews.map(review => (
+    <ReviewCard key={review.id} review={review} />
+  ));
+
   return (
     <SafeAreaView
       style={{
@@ -137,10 +212,150 @@ export default function Home({navigation}) {
               height: '75%',
               width: '100%',
               backgroundColor: '#fff',
+              padding: 20,
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
             }}>
-            <TouchableOpacity onPress={() => setModal(false)}>
-              <Text>close</Text>
-            </TouchableOpacity>
+            <View
+              style={{
+                width: '100%',
+                height: 30,
+                flexDirection: 'row',
+              }}>
+              <View
+                style={{
+                  height: '100%',
+                  aspectRatio: 1,
+                }}
+              />
+              <View
+                style={{
+                  flex: 1,
+                  height: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: '600',
+                    color: '#000',
+                  }}>
+                  {target.name}
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => setModal(false)}
+                style={{
+                  height: '100%',
+                  aspectRatio: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={require('../../public/icons/close.png')}
+                  style={{
+                    height: 16,
+                    width: 16,
+                    resizeMode: 'contain',
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                width: '100%',
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <StarRating
+                rating={averageScore}
+                onChange={value => console.log(value)}
+              />
+              <Text>{'( ' + averageScore + ' / 5.0 )'}</Text>
+            </View>
+            <View
+              style={{
+                height: 100,
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={{
+                  uri:
+                    'http://121.184.96.94:3001/api/v1/image/' + target.imageId,
+                }}
+                style={{
+                  height: 100,
+                  width: 100,
+                }}
+              />
+            </View>
+            <View
+              style={{
+                width: '100%',
+                backgroundColor: '#f4f4f4',
+                alignItems: 'center',
+                marginTop: 10,
+                padding: 10,
+              }}>
+              <View
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  marginVertical: 3,
+                }}>
+                <Image
+                  source={require('../../public/icons/position.png')}
+                  style={{
+                    height: 18,
+                    width: 18,
+                    resizeMode: 'contain',
+                  }}
+                />
+                <View
+                  style={{
+                    flex: 1,
+                    marginLeft: 10,
+                  }}>
+                  <Text>{target.address}</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  marginVertical: 3,
+                }}>
+                <Image
+                  source={require('../../public/icons/message.png')}
+                  style={{
+                    height: 18,
+                    width: 18,
+                    resizeMode: 'contain',
+                  }}
+                />
+                <View
+                  style={{
+                    flex: 1,
+                    marginLeft: 10,
+                  }}>
+                  <Text>{target.description}</Text>
+                </View>
+              </View>
+            </View>
+            <ScrollView
+              style={{
+                width: '100%',
+              }}>
+              {reviewCards}
+            </ScrollView>
           </View>
         </SafeAreaView>
       </Modal>
@@ -163,20 +378,25 @@ export default function Home({navigation}) {
           latitudeDelta: 0.09,
           longitudeDelta: 0.04,
         }}>
-        <Marker
-          tracksViewChanges={true}
-          coordinate={{
-            latitude: parseFloat(String(position.coords.latitude)),
-            longitude: parseFloat(String(position.coords.longitude)),
-          }}>
-          <Image
-            source={require('../../public/icons/mylocation.png')}
-            style={{
-              height: 24,
-              width: 24,
-            }}
-          />
-        </Marker>
+        {position ? (
+          <Marker
+            tracksViewChanges={true}
+            coordinate={{
+              latitude: parseFloat(String(position.coords.latitude)),
+              longitude: parseFloat(String(position.coords.longitude)),
+            }}>
+            <Image
+              source={require('../../public/icons/mylocation.png')}
+              style={{
+                height: 24,
+                width: 24,
+              }}
+            />
+          </Marker>
+        ) : (
+          <View />
+        )}
+
         {facilityMarkers}
       </MapView>
       <View
